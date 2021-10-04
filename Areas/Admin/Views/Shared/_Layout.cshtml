@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--75.  Change Title from MSSAProject to Admin Area-->
+    <title>@ViewData["Title"] - Admin Area</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <!--76.  Change text Title here to Home and add target blank, delete tag helpers and add href / which refer to root-->
+                <a class="navbar-brand" href="/" target="_blank">Home</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <!--77.  Delete second list item-->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Pages" asp-action="Index">Pages</a>
+                        </li>
+                        <!--78.  Modify li to go through pages, change area to admin, and controller to HProduct; Go to -->
+                        <!--216.  Add new navigation link-->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Categories" asp-action="Index">Categories</a>
+                        </li>
+                        <!--217.  Go to site.css to edit pointer-->
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Products" asp-action="Index">Product</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <!--120.  Inject _Notification here-->
+            <partial name="_Notification" />
+            <!--121.  Validate and see if the partial view works upon successful creation of a new page-->
+            <!--122.  Now to do CSRF (Cross Site Request Forgery) and Delete the delete function-->
+            <!--123.  Go to Post method in Controller and add attribute-->
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <!--79.  Delete Footer, dont need it-->
+    <!--80.  Go to Pages Index page - Areas > Views > Pages > Index.cshtml-->>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!--170.  Add ckeditor as a source-->
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <!--171.  Go to Pages Edit.cshtml section-->
+    <!--179.  Add jqueryui script-->
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <!--180.  Go to Index View Page, modify table to use jquery-->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

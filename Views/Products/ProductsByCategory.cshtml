@@ -1,0 +1,39 @@
+﻿<!--483. Add model, edit title and header-->
+@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1 class="display-4 pb-5">@ViewBag.CategoryName</h1>
+
+<!--484.  Create a row div class with a foreach loop to display items name, description and price-->
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <img src="~/media/products/@item.Image" class="img-fluid" alt="" />
+            <h4>@item.Name</h4>
+            <div>
+                @Html.Raw(item.Description)
+            </div>
+            <p>
+                @item.Price.ToString("C2")
+            </p>
+            <p>
+                <!--536.  Modify the button here-->
+                <a asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id" class="btn btn-primary">Add to cart</a>
+                <!--537.  Go back to Cart Index View to modify the page-->
+            </p>
+        </div>
+    }
+    <!--485.  Now to add pagination in products and index page for Products, and call custom tag helper for this project-->
+    @if (@ViewBag.TotalPages > 1)
+    {
+        <div class="d-flex w-100 justify-content-center">
+            <Pagination page-count="@ViewBag.TotalPages" page-target="/products/@ViewBag.CategorySlug"
+                        page-number="@ViewBag.PageNumber" page-range="@ViewBag.PageRange"></Pagination>
+        </div>
+    }
+    <!--486.  Create a view component to display category as a sidebar-->
+    <!--487.  Create a CategoryViewComponent Class in Services-->
+</div>

@@ -1,0 +1,8 @@
+﻿<!--458.  Add model class, title, and change header to display raw content-->
+@model Page
+@{
+    ViewData["Title"] = "MSSAProject";
+}
+
+@Html.Raw(Model.Content)
+<!--459.  Need to modify route to get either root domain or slug page, Go to Startup enpoint route-->

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MSSAProject.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>Categories</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<!--258.  Add sorting to class with an id of categories-->
+<table class="table sorting" id="categories">
+    <thead>
+        <!--213.  Delete items not needed such as id and sorting, same as in the foreach loop-->
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Slug)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <!--259.  give the tr an id to pull item id for sorting to work-->
+            <tr id="id_@item.Id">
+                <!--260.  Go back to the bottom and implement a JS script for sorting-->
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
+                </td>
+                <!--214.  Change action link to tag helper-->
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="confirmDeletion" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+                <!--215.  Add new item to the layout, go to _Layout.cshtml-->
+                <!--216.  Go to Categories Controller and create a Create functionality-->
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!--261.  Add section script for sorting-->
+@section Scripts {
+    <script>
+        //262.  Get table, id, pages, and body. make it sortable, pass an object, and direct what's sortable
+        $("table#categories tbody").sortable({
+            items: "tr:not(.home)",
+            placeholder: "ui-state-highlight",
+            update: function () {
+                //263.  Get all the ID and serialized it
+                let ids = $("table#categories tbody").sortable("serialize");
+                //264.  Specify url, there's no reorder method, so we'll have to make it later
+                let url = "/admin/categories/reorder";
+
+                //265.  Make post request with empty callback
+                $.post(url, ids, function () { });
+                //266.  Go to Categories Controller to create a reorder method
+            }
+        })
+    </script>
+}

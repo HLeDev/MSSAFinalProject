@@ -1,0 +1,55 @@
+﻿@model Page
+<!--91.  Call page class-->
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Slug)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Slug)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd class = "col-sm-10">
+            <!--176.  Change content to display html rather than having p tag on page display-->
+            @Html.Raw(Model.Content)
+            <!--176.  Now to add sorting functionality for the pages using jquery UI sorting-->
+            <!--177.  Add Client-Side-Library, and add jquery ui-->
+            <!--178.  A folder call jquery UI should now be displayed, IOT use it, we'll go to _Layout and add the script-->
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sorting)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sorting)
+        </dd>
+    </dl>
+</div>
+<div>
+    <!--92.  Comment out action link and use tag helper-->
+    <!--Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |-->
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+
+    <!--93.  Now to create a Create Method for Create Page, Go to PagesController-->
+</div>

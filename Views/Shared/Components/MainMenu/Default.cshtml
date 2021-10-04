@@ -1,0 +1,13 @@
+﻿<!--461.  Use IEnumerable model to call list of pages-->
+@model IEnumerable<Page>
+<!--462.  Use foreach to display item-->
+@foreach (var item in Model)
+{
+    @if (item.Slug != "home")
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Pages" asp-action="Page" asp-route-slug="@item.Slug">@item.Title</a>
+        </li>
+    }
+}
+<!--463.  Go to main Layout and delete all the lis-->

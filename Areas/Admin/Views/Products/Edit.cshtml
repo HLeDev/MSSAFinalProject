@@ -1,0 +1,86 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+<!--397.  Edit model, title, and header-->
+<h1>Edit Product</h1>
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--398.  Delete items not needed such as Id and slug,-->
+            <!--403.  Create a hidden input for image-->
+            <input type="hidden" asp-for="Image" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!--399.  Change description from input to textarea-->
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <!--400.  Change input from Input to select from cat id and item-->
+                <select asp-for="CategoryId" asp-items="@ViewBag.CategoryId" class="form-control">
+                    <option value="0">Choose a Category</option>
+                </select>
+                <!--401.  Check browser to see if the site is displayed as intended-->
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <!--402.  Edit image source and then create a value to hide image-->
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Current Image</label>
+                <img src="~/media/products/@Model.Image" width="200" alt="" />
+            </div>
+
+            <!--404.  Create a tag to support new image loaded-->
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">New Product Image</label>
+                <input asp-for="ImageUpload" class="form-control" />
+                <!--405.  Put a placeholder for image-->
+                <img src="" id="imupload" class="pt-2" alt="" />
+                <span asp-validation-for="ImageUpload" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<!--406. Edit section for ckeditor and imageupload -->
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+            CKEDITOR.replace("Description")
+
+            //407.  Call the function from site.js for image upload preview
+            $("#ImageUpload").change(function () {
+                readURL(this);
+            });
+            //408.  Verify the image preview is displayed correctly*/
+            //409.  Now to add validation for the category, go to Product class
+    </script>
+}
+<!--410.  Go to ProductsController and Create a Post method for Edit-->

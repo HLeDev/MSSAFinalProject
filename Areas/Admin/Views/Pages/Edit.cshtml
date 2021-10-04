@@ -1,0 +1,54 @@
+﻿@model MSSAProject.Models.Page
+
+@{
+    ViewData["Title"] = "Edit Page";
+}
+<!--135.  Change title to Edit Page-->
+<h1>Edit Page</h1>
+
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--136.  Delete items not needed such as ID, slug, sort-->
+            <!--138.  Now we need to add a hidden function of ID and sort-->
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Sorting" />
+
+            <!--139.  Now we need a Post method to handle the controller of edit, Go back to Controller Page -->
+
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <!--137.  Change input  type from input to textarea-->
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        CKEDITOR.replace("Content")
+    </script>
+    <!--173.  Do the same thing for Create Page-->
+}
+<!--172.  Add ckeditor and replace the content to get major text area-->

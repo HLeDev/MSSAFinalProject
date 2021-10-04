@@ -1,0 +1,92 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Create Product";
+}
+<!--297.  Change Title and Header-->
+<h1>Create Product</h1>
+
+
+<div class="row">
+    <div class="col-md-10">
+        <!--316.  Add enctype for supports-->
+        <form asp-action="Create" enctype="multipart/form-data">
+            <!--317.  Now to add image preview functionality, go to image div-->
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--298.  Delete columns not needed scuh as ID and Slug, -->
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <!--299.  Change input of description to Text area for more space-->
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <!--300.  Change input from Input to select from cat id and item-->
+                <select asp-for="CategoryId" asp-items="@ViewBag.CategoryId" class="form-control">
+                    <option value="0">Choose a Category</option>
+                </select>
+                <!--301.  Check browser to see if the site is displayed as intended-->
+                <!--302.  Go to Product Class and add an attribute for display so it doesnt show CategoryId on browser and verify after change-->
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                <!--303.  Modify Section script at the bottom-->
+            </div>
+
+            <div class="form-group">
+                <!--309.  Add a title to this Image label-->
+                <label asp-for="Image" class="control-label">Product Image</label>
+                <!--310.  Go to Product Class-->
+                <!--313.  Change for from Image to ImageUpload, same for validation-->
+                <input asp-for="ImageUpload" class="form-control" />
+
+                <!--318.  Put a placeholder for image-->
+                <img src="" id="imupload" class="pt-2" alt=""/>
+                <!--319.  Go to Site.js and write a js function-->
+
+                <span asp-validation-for="ImageUpload" class="text-danger"></span>
+                <!--314.  Check browser to see if it display correctly-->
+                <!--315.  Now to get the form to support the images-->
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<!--305.  This partialview is specifically for validation that is automatically created-->
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <!--306.  Add the ckeditor to change textarea out look-->
+    <script>
+        CKEDITOR.replace("Description")
+
+        //323.  Call the function from site.js for image upload preview
+        $("#ImageUpload").change(function () {
+            readURL(this);
+        });
+        //324.  Verify the image preview is displayed correctly*/
+        //325.  Now to add validation for the category, go to Product class
+    </script>
+<!--307.  Verify the text area in create page is functioning properly-->
+<!--308.  Change image area to differ from string-->
+}

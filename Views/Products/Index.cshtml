@@ -1,0 +1,39 @@
+﻿<!--471. Add model, edit title and header-->
+@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="display-4 pb-5">All Products</h1>
+
+<!--472.  Create a row div class with a foreach loop to display items name, description and price-->
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <img src="~/media/products/@item.Image" class="img-fluid" alt="" />
+            <h4>@item.Name</h4>
+            <div>
+                @Html.Raw(item.Description)
+            </div>
+            <p>
+                @item.Price.ToString("C2")
+            </p>
+            <p>
+                <!--534.  Use tag Hlper rather than href for redirection-->
+                <a asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id" class="btn btn-primary">Add to cart</a>
+                <!--535.  Do the same thing in ProductsByCategory-->
+            </p>
+        </div>
+    }
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="d-flex w-100 justify-content-center">
+            <Pagination page-count="@ViewBag.TotalPages" page-target="/products"
+                        page-number="@ViewBag.PageNumber" page-range="@ViewBag.PageRange"></Pagination>
+        </div>
+    }
+    
+</div>
+<!--473.  Go back to productscontroller and create a method to pull products by category-->
+

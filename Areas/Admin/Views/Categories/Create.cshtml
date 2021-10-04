@@ -1,0 +1,39 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<!--220.  Change header-->
+<h1>Create Category</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <!--221.  Change md from 4 to 10-->
+    <div class="col-md-10">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--222.  Only row need is Name-->
+            
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <!--223.  Verify you can access page and Attribute restriction is valid-->
+            <!--224.  Go to Categories Controller and create a Post method to submit category-->
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

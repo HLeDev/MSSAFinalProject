@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Page>
+<!--81.  No need to call the solution, just use class-->
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<!--181.  Add sorting to table class and give it an id-->
+<table class="table sorting" id="pages">
+    <thead>
+        <!--182.  Give tree root a class name of home-->
+        <tr class="home">
+            <!--82.  Delete Columns not needed -->
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Slug)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <!--183  Give tree root an id and reference id of page, then give it a class of slug so home page won't be sortable, that's
+                why the top tr have the class of home, and home is always the initial page-->
+            <!--184.  Add section script at bottom of page-->
+            <tr id="id_@item.Id" class="@item.Slug">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
+                </td>
+                <td>
+                    <!--83.  Create a tag helper for Edit Details and Delete rather than HTML Actionlink-->
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <!--Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })-->
+                    <!--126.  Write an if statement to remove delete function from home page-->
+                    @if (item.Slug != "home")
+                    {
+                        //161.  Add a class to confirm deletion
+                        <a class="confirmDeletion" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        //162.  Need to confirm by JS, go to wwwroot > js > site.js
+                    }
+                    <!--127.  Go to Page Controller to start Edit Page Function-->
+                </td>
+
+                <!--84.  Go to PagesController to create Details Action Method-->
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!--185.  Add section script here-->
+@section Scripts {
+    <script>
+        //186.  Get table, id, pages, and body. make it sortable, pass an object, and direct what's sortable
+        $("table#pages tbody").sortable({
+            items: "tr:not(.home)",
+            placeholder: "ui-state-highlight",
+            update: function () {
+                //187.  Get all the ID and serialized it
+                let ids = $("table#pages tbody").sortable("serialize");
+                //188.  Specify url, there's no reorder method, so we'll have to make it later
+                let url = "/admin/pages/reorder";
+
+                //189.  Make post request with empty callback
+                $.post(url, ids, function () { });
+                //190.  Now to add CSS to make page easier to view, go to site.css
+            }
+        })
+    </script>
+}
