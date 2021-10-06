@@ -17,6 +17,38 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        <!--661.  Create an if else statement for the buttons on whether the user is login or not-->
+                        @if (User?.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Edit" class="btn btn-primary">My Account</a>
+                            </li>
+                            <li class="nav-item ml-1">
+                                <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Hello, @User.Identity.Name, Logout</a>
+                            </li>
+                            //784.  Write an if statement for admins to access admin page
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item ml-1">
+                                    <a asp-area="Admin" asp-controller="Pages" asp-action="Index" class="btn btn-success">Admin Area</a>
+                                </li>
+                            }
+                            //785.  Modify all URLs to be lower case for easy access, go to Startup.cs Configure Services
+                        }
+                        else
+                        {
+                            <!--648.  Create a ul for login/register-->
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Login" class="btn btn-success">Login</a>
+                            </li>
+                            <li class="nav-item ml-1">
+                                <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Register</a>
+                            </li>
+                            <!--649.  Go to Account Controller to create Post Method-->
+                        }
+                        <!--662.  Go back to Account controller-->
+                    </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <!--464.  Call components-->
                         @await Component.InvokeAsync("MainMenu")
@@ -28,10 +60,20 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <partial name="_Notification"/>
+
             <!--498.  Create a div class to display rows and columns of categories-->
             <div class="row">
                 <div class="col-3">
                     @await Component.InvokeAsync("Categories")
+
+                    <!--574.  Create a div for small cart-->
+                    <div class="smallcart bg-success mt-3 p-3 text-white">
+                        <!--575.  Invoke the component-->
+                        @await Component.InvokeAsync("SmallCart")
+                        <!--576.  Check of View cart is function properly and displaying correct information-->
+                        <!--577.  Go to product index.cshtml-->
+                    </div>
                 </div>
                 <div class="col">
                     @RenderBody()

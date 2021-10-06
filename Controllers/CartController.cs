@@ -68,7 +68,14 @@ namespace MSSAProject.Services
             //533.  Need to set the session for the cart and serialize it
             HttpContext.Session.SetJson("Cart", cart);
 
-            return RedirectToAction("Index");
+            //588.  Need to invoke method on cart page with ajax request
+            //589.  Need to write an if statement to check the request, if it's not an ajax request, go to index, if it is, return view component
+            if(HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                return RedirectToAction("Index");
+            
+            //590. Go to Clear Method
+
+            return ViewComponent("SmallCart");
             //534.  Go to Products Index page to modify Add to cart button
         }
 
@@ -134,12 +141,28 @@ namespace MSSAProject.Services
         }
 
         // Get /cart/clear
-        //552.  Create a method to clear cart
+        //556.  Create a method to clear cart
         public IActionResult Clear()
         {
-            HttpContext.Session.Remove("Cart");
+            //591.  Modify this method with different redirection to action method in a different controller such as ("Page", "Pages)
+            // or return Redirect("/") will take back to home page
+            // or return Redirect(Request.Headers["Referer].ToString()) to go back to previous request
 
-            return RedirectToAction("Index");
+            HttpContext.Session.Remove("Cart");
+            //592.  Go to www.paypal.com/us/smarthelp/article/how-do-i-add-paypal-checkout-to-my-custom-shopping-cart-ts1200
+            //to get method to add paypal to shopping cart
+
+            //593.  Create a Razer Partial View Page in Views > Cart for Paypal then copy form from link
+
+            //609.  Insert ajax check from Add method here
+            if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                return RedirectToAction("Index");
+
+            return Ok();
+            //610.  Now to start Identity for managing users, registering, and roles
+            //611.  Create a call in Models call AppUser, go to Class
         }
+        //557.  Need to create SmallCartView model and component to have smallcart overview below categories to display total number of product and amount
+        //558.  Create a new class in Models call SmallCartViewModel, go to class and create property
     }
 }

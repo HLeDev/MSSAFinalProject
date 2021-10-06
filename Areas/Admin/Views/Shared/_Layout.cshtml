@@ -35,6 +35,22 @@
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Products" asp-action="Index">Product</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Roles" asp-action="Index">Roles</a>
+                        </li>
+
+                        <!--781.  Create a li for logout for admin and go back to user page, then go to site.css to modify this li-->
+                        <li class="nav-item ml-1 userarea">
+                            <a asp-area="" asp-controller="Products" asp-action="Index" class="btn btn-success">User Area</a>
+                        </li>
+                        <li class="nav-item ml-1 logout">
+                            <a asp-area="" asp-controller="Account" asp-action="Logout" class="btn btn-danger">Logout</a>
+                        </li>
+
                     </ul>
                 </div>
             </div>

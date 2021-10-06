@@ -4,14 +4,16 @@ using MSSAProject.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSSAProject.Migrations
 {
     [DbContext(typeof(HDbContext))]
-    partial class HDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211005221131_IdentityCreate")]
+    partial class IdentityCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

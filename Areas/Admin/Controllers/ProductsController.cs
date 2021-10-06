@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace MSSAProject.Areas.Admin.Controllers
 {
+    //778.  Add Authorization attribute, next Roles Controller
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class ProductsController : Controller
     {

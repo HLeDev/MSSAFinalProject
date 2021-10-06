@@ -1,0 +1,28 @@
+﻿<!--595.  Initialize a count variabel-->
+@{ 
+    int count = 1;
+}
+<!--594.  Paste post form here, edit value for cmd to cart and email of paypal account-->
+<form class="paypalform" action="https://www.sandbox.paypal.com/us/cgi-bin/webscr" method="post">
+    <input type="hidden" name="cmd" value="_cart">
+    <input type="hidden" name="upload" value="1">
+
+    <input type="hidden" name="business" value="HungLeMSSA@gmail.com">
+
+    <!--596.  Create a foreach statement for each item in cart using name from site-->
+    @foreach (var item in Model)
+    {
+        <input type="hidden" name="item_name_@count" value="@item.ProductName" />
+        <input type="hidden" name="amount_@count" value="@item.Price" />
+        <input type="hidden" name="quantity_@count" value="@item.Quantity" />
+        count++;
+    }
+    <!--597.  Go to Cart Index.cshtml and inject this partial view-->
+    <!--600.  Create a 2 paypal sandbox account to use paypal for testing purposes-->
+
+    <input type="hidden" name="currency_code" value="USD">
+    <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+</form>
+
+
+<!--601.  Create an alert in cart index page to display alert when redirected to paypal page-->

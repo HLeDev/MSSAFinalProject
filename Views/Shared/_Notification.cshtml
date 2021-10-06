@@ -1,0 +1,22 @@
+﻿<!--117.  Need to check if TempData is active-->
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success notification">
+        @TempData["Success"]
+    </div>
+}
+<!--118.  Need to inject this partial view in _Layout.cshtml in Areas Shared Folder-->
+<!--119.  Go to _Layout.cshtml-->
+
+
+<!--157.  Add the error temp data-->
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger notification">
+        @TempData["Error"]
+    </div>
+}
+
+<!--158.  When messages are displayed, it'll stay there forever, IOT prevent that, need to add another class "notification"-->
+<!--159.  Will also need to an alert to confirm whether or not page should be deleted-->
+<!--160.  Go to Pages Index.cshtml-->

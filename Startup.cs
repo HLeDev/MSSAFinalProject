@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MSSAProject.Models;
 using MSSAProject.Services;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,11 @@ namespace MSSAProject
             services.AddSession();
             //options => { options.IdleTimeout = TimeSpan.FromDays(1); }
             //521.  Go to Configure Method to use session
+
+            //786.  Call routing options services for lower url
+            services.AddRouting(options => options.LowercaseUrls = true);
+            //787.  
+
 
             services.AddControllersWithViews();
 
@@ -64,6 +71,23 @@ namespace MSSAProject
             //36.  Create a SeedData class in Models and go to class
 
 
+
+            //637.  Add options in AddIdentity for requirements of password
+            //638.  Check browser and see if it will redirect to login page, then check sql database to see if data is in there
+            //639.  Create a Login Class in Model Folder, go to class
+            //625.  Use services for identity
+            services.AddIdentity<AppUser, IdentityRole>(options => { 
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+            
+            }).AddEntityFrameworkStores<HDbContext>().AddDefaultTokenProviders();
+            //626.  Go to configure method to use authentication
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,7 +112,15 @@ namespace MSSAProject
             app.UseSession();
             //523.  Go to CartController and create a cart method
 
+
+            //627.  Use Authentication
+            app.UseAuthentication();
+            //628.  Create Account Controller to serve for registering logging in and editing users
+            //629.  Create a Controller in Controllers call AccountController
+
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MSSAProject.Models;
 using MSSAProject.Services;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MSSAProject.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         //466.  Implement constructor for product donctex

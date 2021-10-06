@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MSSAProject.Models;
 using MSSAProject.Services;
@@ -9,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace MSSAProject.Areas.Admin.Controllers
 {
+    //776.  Add Authorization attribute, next Pages Controller
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class CategoriesController : Controller
     {

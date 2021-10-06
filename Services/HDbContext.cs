@@ -4,12 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MSSAProject.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MSSAProject.Services
 {
     //5.  Call DBContext Class
-    public class HDbContext : DbContext
+    public class HDbContext : IdentityDbContext<AppUser>
     {
+        //617.  Specify user class in extensioon
+        //618.  Add-Migration IdentityCreate and Update-Database
+        //619.  View Designer Table for AspNetUsers and make sure Occupation is there
+        //620.  Create a New User Class in Models, since AppUser is for Database Creation, go to Class
+
         //6.  Create a constructor options to reference class
         public HDbContext(DbContextOptions<HDbContext> options)
             : base(options)

@@ -1,0 +1,27 @@
+﻿<!--568.  Use Model class for this page-->
+@model SmallCartViewModel
+<!--569.  Need to check if cart is null using a if statement-->
+@if (Model != null)
+{
+    <!--570.  Create tags for display of items and price-->
+    <p>
+        Items in Cart:
+        <span class="badge badge-primary">@Model.NumberofItems</span>
+    </p>
+
+    <p>
+        Total:
+        <b>@Model.TotalAmount.ToString("C2")</b>
+    </p>
+
+    <!--571.  Create tag helper actions for View Cart and Clear Cart-->
+    <a class="btn btn-primary mb-2" asp-controller="Cart" asp-action="Index">View Cart</a>
+    <br />
+    <a class="btn btn-danger" asp-controller="Cart" asp-action="Clear">Clear Cart</a>
+}
+else
+{
+    <!--572.  If cart IS null, display empty cart message-->
+    <p class="lead m-0">Your Cart is Empty!</p>
+    <!--573.  Need to invoke the component in the main _Layout-->
+}
