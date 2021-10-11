@@ -35,7 +35,6 @@ namespace MSSAProject
 
             //786.  Call routing options services for lower url
             services.AddRouting(options => options.LowercaseUrls = true);
-            //787.  
 
 
             services.AddControllersWithViews();

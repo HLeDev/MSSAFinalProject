@@ -62,17 +62,22 @@
 
             let id = $(this).data("id");
 
-            $.get('/cart/add/' + id, {}, function (data) {
-                $("div.smallcart").html(data);
+            function hideLoader() {
                 ajaxDiv.find("img").addClass("d-none");
                 ajaxDiv.find("p").removeClass("d-none");
+            }
+            function resetLoader() {
+                ajaxDiv.find("img").removeClass("d-none");
+                ajaxDiv.find("p").addClass("d-none");
+                ajaxDiv.addClass("d-none");
+            }
+
+            $.get('/cart/add/' + id, {}, function (data) {
+                ajaxDiv.removeClass("d-none");
                 setTimeout(() => {
-                    ajaxDiv.animate({ opacity: 0 }, function () {
-                        $(this).addClass("d-none").fadeTo(1, 1);
-                        $(this).find("img").removeClass("d-none");
-                        $(this).find("p").addClass("d-none");
-                    });
-                });
+                    hideLoader();
+                    setTimeout(() => { resetLoader(); }, 1000);
+                }, 1000);
             });
         });
     });
